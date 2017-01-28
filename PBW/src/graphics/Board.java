@@ -91,7 +91,6 @@ public class Board extends JPanel {
 								g2d.drawLine(x1, Y0 - y1, x2, Y0 - y2);
 								g2d.drawString(parser.readPointName(x1, y1, fileName), x1, Y0 - y1);
 							} catch (Exception e) {
-								//e.printStackTrace();
 							}
 						}
 

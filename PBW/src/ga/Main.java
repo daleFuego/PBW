@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import graphics.PBWDrawer;
 import graphics.PBWParser;
 
-public class TSP_GA {
+public class Main {
 
 	private static PBWParser parser;
 	private static ArrayList<String[]> pointCoordinates;
 
 	private static String fileName = "p14-101.txt";
 	private static int iterations = 200;
-	private static int population = 101;
+	private static int populationSize = 101;
 	private static int scale = 5;
 
 	static int mode = 2;
@@ -42,22 +42,23 @@ public class TSP_GA {
 				} catch (Exception e) {
 					y = 0;
 				}
-				TourManager.addCity(new City(x, y));
+				RouteManager.addDestination(new DestinationPoint(x, y));
 			}
 
-			Population pop = new Population(population, true);
-			System.out.println("Initial distance: " + pop.getFittest().getDistance());
+			Population population = new Population(populationSize, true);
+			System.out.println("Initial distance: " + population.getBestRoute().getDistance());
 
 			for (int x = 0; x < iterations; x++) {
-				pop = GA.evolvePopulation(pop);
+				population = GeneticAlgorithm.evolvePopulation(population);
+				
 				for (int i = 0; i < 100; i++) {
-					pop = GA.evolvePopulation(pop);
+					population = GeneticAlgorithm.evolvePopulation(population);
 				}
-				result = "\n\nFinal distance: " + pop.getFittest().getDistance() + "\nIterations: " + iterations
-						+ "\nSolution:\n" + fileName + "=" + pop.getFittest();
+				
+				result = "\n\nFinal distance: " + population.getBestRoute().getDistance() + "\nIterations: " + iterations
+						+ "\nSolution:\n" + fileName + "=" + population.getBestRoute();
 
 				System.out.println(result);
-
 			}
 
 			try {
